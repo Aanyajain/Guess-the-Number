@@ -13,7 +13,14 @@ const generateRandomNum=(min,max,exclude)=>{
     return generateRandomNum(min,max,exclude)
     else
     return randNum;
-}
+};
+
+const renderList=(value,numOfRound)=>(
+    <View key={value} style={styles.list}>
+        <Text>#{numOfRound}</Text>
+        <Text>{value}</Text>
+    </View>
+);
 const GameScreen=props=>{
     const initialGuess=generateRandomNum(1,100,props.userChoice);
     const [currentGuess,setCurrentGuess]=useState(initialGuess);
@@ -62,15 +69,11 @@ const GameScreen=props=>{
             <Ionicons name="md-add" size={24} color="white" />
             </MainButton>
         </Card>
+        <View style={styles.item}>
       <ScrollView>
-          {pastGuesses.map(guess=>(
-              <View key={guess}>
-                  <Text>
-                      {guess}
-                  </Text>
-              </View>
-          ))}
+          {pastGuesses.map((guess,index)=>(renderList(guess,pastGuesses.length-index)))}
       </ScrollView>
+      </View>
     </View>
     );
 };
@@ -87,6 +90,18 @@ const styles=StyleSheet.create({
         width:300,
         maxWidth:'80%',
         marginTop:20
+    },
+    list:{
+        borderColor:'#ccc',
+        padding:15,
+        marginVertical:10,
+        borderWidth:1,
+        backgroundColor:'white',
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    item:{
+        width:'80%',
     }
 });
 
