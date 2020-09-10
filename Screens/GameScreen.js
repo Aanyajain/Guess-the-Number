@@ -1,8 +1,9 @@
 import React,{useState,useRef,useEffect} from 'react';
-import {View,StyleSheet,Text, Button,Alert} from 'react-native';
+import {View,StyleSheet,Text, Button,Alert,ScrollView} from 'react-native';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import MainButton from '../components/MainButton';
+import {Ionicons} from '@expo/vector-icons';
 
 const generateRandomNum=(min,max,exclude)=>{
     min=Math.ceil(min);
@@ -14,9 +15,10 @@ const generateRandomNum=(min,max,exclude)=>{
     return randNum;
 }
 const GameScreen=props=>{
-    const [currentGuess,setCurrentGuess]=useState(generateRandomNum(1,100,props.userChoice));
-    const [rounds,setRounds]=useState(0);
-
+    const initialGuess=generateRandomNum(1,100,props.userChoice);
+    const [currentGuess,setCurrentGuess]=useState(initialGuess);
+    // const [rounds,setRounds]=useState(0);
+    const [pastGuesses,setPastGuesses]=useState([initialGuess]);
     const currentLow=useRef(1);
     const currentHigh=useRef(100);
     const {userChoice,onGameOver}=props;
@@ -24,7 +26,7 @@ const GameScreen=props=>{
     useEffect(()=>{
         if(currentGuess===userChoice)
         {
-            onGameOver(rounds);
+            onGameOver(pastGuesses.length);
         }
     },[currentGuess,userChoice,onGameOver]);
     
@@ -40,11 +42,12 @@ const GameScreen=props=>{
             currentHigh.current=currentGuess;
         }
         else{
-            currentLow.current=currentGuess;
+            currentLow.current=currentGuess+1;
         }
         const nextNum=generateRandomNum(currentLow.current,currentHigh.current,currentGuess);
         setCurrentGuess(nextNum);
-        setRounds(curRounds=>curRounds+1);
+        // setRounds(curRounds=>curRounds+1);
+        setPastGuesses(curPastGuess=>[nextNum,...curPastGuess])
     };
 
     return(
@@ -52,10 +55,22 @@ const GameScreen=props=>{
         <Text>Opponent's guess</Text>
         <NumberContainer>{currentGuess}</NumberContainer>
         <Card style={styles.buttonCont}>
-            <MainButton onPress={nextGuessHandler.bind(this,'lower')}>LOWER</MainButton>
-            <MainButton onPress={nextGuessHandler.bind(this,'greater')}>GREATER</MainButton>
+            <MainButton onPress={nextGuessHandler.bind(this,'lower')}>
+                <Ionicons name="md-remove" size={24} color="white" />
+            </MainButton>
+            <MainButton onPress={nextGuessHandler.bind(this,'greater')}>
+            <Ionicons name="md-add" size={24} color="white" />
+            </MainButton>
         </Card>
-
+      <ScrollView>
+          {pastGuesses.map(guess=>(
+              <View key={guess}>
+                  <Text>
+                      {guess}
+                  </Text>
+              </View>
+          ))}
+      </ScrollView>
     </View>
     );
 };
