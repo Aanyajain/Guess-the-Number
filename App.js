@@ -7,6 +7,7 @@ import GameOverScreen from './Screens/GameOverScreen';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
+
 const fetchFonts=()=>{
   return Font.loadAsync({
     'open-sans':require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -43,10 +44,7 @@ export default function App() {
 
 
   let content=<StartGameScreen onStartGame={startGameHandler} />
-  content=(<GameOverScreen roundNum={1} 
-  userNum={1}
-  onRestart={newGameHandler}
-  />);
+
   if(userNumber && guessRounds<=0)
   {
     content=<GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />

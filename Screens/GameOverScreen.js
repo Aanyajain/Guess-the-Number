@@ -1,20 +1,20 @@
 import React from 'react';
 import {View,Text,StyleSheet,Button,Image} from 'react-native';
+import MainButton from '../components/MainButton';
 
 const GameOverScreen=props=>{
     return (
         <View style={styles.screen}>
             <Text>The Game is over!!</Text>
             <View style={styles.cont}>
-            {/* <Image source={require('../assets/gameover.png')} */}
-            <Image source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQWUGhDXkgolW8CVthSMpAxo3UmrOw3OrJuzA&usqp=CAU'}}
+            <Image source={require('../assets/success.png')}
             style={styles.img}
             resizeMode="cover"
             />
             </View>
-           <Text>The Number of Rounds: {props.roundNum}</Text>
-           <Text>Number was : {props.userNum}</Text>
-           <Button title="NEW GAME" onPress={props.onRestart} />
+           <Text>Your phone needed{' '} <Text style={styles.highlight}>{props.roundNum}</Text>
+            to guess{' '} <Text style={styles.highlight}>{props.userNum}</Text> </Text>
+           <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
         </View>
     );
 };
@@ -38,6 +38,11 @@ const styles=StyleSheet.create({
         height:'100%',
         width:'100%',
 
+    },
+    highlight:{
+        color:'gray',
+        fontFamily:'open-sans-bold',
+        marginHorizontal:20
     }
    
 });
