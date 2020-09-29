@@ -13,9 +13,9 @@ const GameOverScreen=props=>{
             resizeMode="cover"
             />
             </View>
-           <Text>Your phone needed{' '} <Text style={styles.highlight}>{props.roundNum}</Text>
-            to guess{' '} <Text style={styles.highlight}>{props.userNum}</Text> </Text>
-           <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
+           <Text style={styles.textCont}>Your phone needed{' '} <Text style={styles.highlight}>{props.roundNum}</Text> rounds
+            to guess{' '} <Text style={styles.highlight}>{props.userNum}</Text></Text>
+           <View style={styles.button1}><MainButton onPress={props.onRestart}>NEW GAME</MainButton></View>
         </View>
         </ScrollView>
     );
@@ -40,10 +40,18 @@ const styles=StyleSheet.create({
         height:'100%',
         width:'100%',
     },
+    textCont:{
+        fontSize:Dimensions.get('window').height<300?14:18,
+        margin:10
+    },
     highlight:{
         color:'gray',
         fontFamily:'open-sans-bold',
-        marginHorizontal:20
+        fontSize:Dimensions.get('window').height<300?14:18,
+        marginHorizontal:20,
+    },
+    button1:{
+        margin:20
     }
 });
 
