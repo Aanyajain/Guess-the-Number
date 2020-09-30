@@ -4,6 +4,7 @@ import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import MainButton from '../components/MainButton';
 import {Ionicons} from '@expo/vector-icons';
+import {ScreenOrientation} from 'expo';
 
 const generateRandomNum=(min,max,exclude)=>{
     min=Math.ceil(min);
@@ -22,6 +23,8 @@ const renderList=(numOfRound,itemData)=>(
     </View>
 );
 const GameScreen=props=>{
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientatiobLock.PORTRAIT);
+     
     const initialGuess=generateRandomNum(1,100,props.userChoice);
     const [currentGuess,setCurrentGuess]=useState(initialGuess);
     // const [rounds,setRounds]=useState(0);
