@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {View,Text,StyleSheet,Image,Dimensions,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,Image,Dimensions,ScrollView,SafeAreaView} from 'react-native';
 import MainButton from '../components/MainButton';
 
 const GameOverScreen=props=>{
